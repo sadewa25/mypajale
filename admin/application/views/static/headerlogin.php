@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?php echo base_url().'assets/css/custom.css' ?>">
 	<link rel="stylesheet" href="<?php echo base_url().'assets/icons/fontawesome/css/all.css'?>">
 	<!-- Quill Text Editor -->
-	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
 
 	<!-- script -->
 	<script src="<?php echo base_url().'assets/js/jquery/jquery-3.4.1.min.js' ?>" charset="utf-8"></script>

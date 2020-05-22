@@ -29,6 +29,8 @@
   $rekomendasi = $_POST['rekomendasi'];
   $id_status_report = $_POST['id_status_report'];
   $keterangan_tanaman = $_POST['keterangan_tanaman'];
+  $longitude = $_POST['longitude'];
+  $latitude = $_POST['latitude'];
 
   if (!empty($id_user) &&
       !empty($id_penyakit) &&
@@ -53,6 +55,8 @@
         $laporan->rekomendasi = $rekomendasi;
         $laporan->id_status_report = $id_status_report;
         $laporan->keterangan_tanaman = $keterangan_tanaman;
+        $laporan->longitude = $longitude;
+        $laporan->latitude = $latitude;
 
     if ($laporan->insert()) {
       http_response_code(201);

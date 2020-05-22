@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?php echo base_url().'assets/css/custom.css' ?>">
 	<link rel="stylesheet" href="<?php echo base_url().'assets/icons/fontawesome/css/all.css'?>">
 	<!-- Quill Text Editor -->
-	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
 
 	<!-- script -->
 	<script src="<?php echo base_url().'assets/js/jquery/jquery-3.4.1.min.js' ?>" charset="utf-8"></script>
@@ -30,8 +30,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<nav class="navbar navbar-dark fixed-top bg-success flex-md-nowrap p-0 shadow">
 	  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="<?php echo base_url(); ?>"><strong>MyPaJaLe</strong></a>
 	  <ul class="navbar-nav px-3">
-	    <li class="nav-item text-nowrap">
-	      <a class="nav-link" href="<?php echo base_url('users/logout') ?>" id="keluar"><span class="fas fa-sign-out-alt h6 mr-1"></span>Keluar</a>
+	    <li class="nav-item text-nowrap d-flex align-center">
+				<a class="nav-link mr-2" href="#" style="cursor: default">
+					<span class="fas fa-user-circle h6 mr-1"></span><?php echo $this->session->userdata('userName'); ?>
+				</a>
+	      <a class="nav-link" href="<?php echo base_url('users/logout') ?>" id="keluar">
+					<span class="fas fa-sign-out-alt h6 mr-1"></span>Keluar
+				</a>
 	    </li>
 	  </ul>
 	</nav>

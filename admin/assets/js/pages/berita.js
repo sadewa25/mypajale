@@ -1,15 +1,15 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
-  //setting quill text editor
-  const quillAdd = new Quill('#desc-add', {
-    theme: 'snow'
-  });
-
-  const quillEdit = new Quill('#desc-edit', {
-    theme: 'snow'
-  });
+  // //setting quill text editor
+  // const quillAdd = new Quill('#desc-add', {
+  //   theme: 'snow'
+  // });
+  //
+  // const quillEdit = new Quill('#desc-edit', {
+  //   theme: 'snow'
+  // });
 
   //display data to datatable
   const table = $('#mydata').DataTable({
@@ -45,7 +45,8 @@ $(document).ready(function() {
   $('#save-btn').on('click', function(){
     //get text data from input form
     let judul = $('#judul-add').val()
-    let deskripsi = quillAdd.root.innerHTML
+    // let deskripsi = quillAdd.root.innerHTML
+    let deskripsi = $('#desc-add').val();
     let tanggal = $('#tgl-add').val()
     let tanaman = $('#tanaman-add').val()
     let gambar =  ''
@@ -86,9 +87,10 @@ $(document).ready(function() {
         $.notify("Data berhasil disimpan", { position: "right bottom", className: "success" });
         //clean input field
         $('#judul-add').val("")
-        quillAdd.setText("")
+        // quillAdd.setText("")
+        $('#desc-add').val("")
         $('#tgl-add').val("")
-        $('#img-add').val("")
+        $('#img-add').val(null)
         $('#tanaman-add').val("")
         //reload datatables
         table.ajax.reload()
@@ -116,11 +118,12 @@ $(document).ready(function() {
     //retrive back data to input field form edit
     $('#id-berita-edit').val($(this).val())
     $('#judul-edit').val($(this).attr('judul'))
-    quillEdit.setText($(this).attr('desc'))
+    // quillEdit.setText($(this).attr('desc'))
+    $('#desc-edit').val($(this).attr('desc'))
     $('#tgl-edit').val($(this).attr('tgl'))
     $(`#tanaman-edit option:contains(${$(this).attr('tanaman')})`).attr('selected', 'selected')
     $('#img-edit').attr('title', $(this).attr('img'))
-    $('#img-show').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/berita/img/${$(this).attr('img')}`)
+    $('#img-show').attr('src', `http://mypajale.id/apimypajale/api/berita/img/${$(this).attr('img')}`)
 
   })
 
@@ -129,7 +132,8 @@ $(document).ready(function() {
     //get the data from input field
     let id = $('#id-berita-edit').val()
     let judul = $('#judul-edit').val()
-    let deskripsi = quillEdit.root.innerHTML
+    // let deskripsi = quillEdit.root.innerHTML
+    let deskripsi = $('#desc-edit').val();
     let tanggal = $('#tgl-edit').val()
     let tanaman = $('#tanaman-edit').val()
     let gambar = ''
@@ -170,6 +174,7 @@ $(document).ready(function() {
       function(success){
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         table.ajax.reload()
+        $('#edit-modal').modal('hide')
       })
     }else{
       //set and show notification is input is empty
@@ -197,7 +202,7 @@ $(document).ready(function() {
       $('#detail-judul').text(data.judul_berita)
       $('#detail-user').text(`Oleh : ${data.nama_lengkap}`)
       $('#detail-tgl').text(`Tanggal : ${data.tgl_berita}`)
-      $('#detail-img').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/berita/img/${data.gambar_berita}`)
+      $('#detail-img').attr('src', `http://mypajale.id/apimypajale/api/berita/img/${data.gambar_berita}`)
       $('#detail-desc').text(data.deskripsi_berita)
       $('#detail-tanaman').text(`Tanaman : ${data.tanaman}`)
 
@@ -223,15 +228,15 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button href="#" class="btn btn-primary btn-sm mx-1" id="detail-btn" value="${data.id_berita}"><span class="fas fa-eye h6 mr-1"></span>Detail</button>
-            <button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button href="#" class="btn btn-primary btn-sm m-1" id="detail-btn" value="${data.id_berita}"><span class="fas fa-eye h6 mr-1"></span>Detail</button>
+            <button class="btn btn-warning btn-sm mx-1 m-1" id="edit-btn"
                     value="${data.id_berita}"
                     judul="${data.judul_berita}"
                     desc="${data.deskripsi_berita}"
                     tgl="${data.tgl_berita}"
                     tanaman="${data.tanaman}"
                     img="${data.gambar_berita}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_berita}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_berita}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

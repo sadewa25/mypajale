@@ -1,15 +1,15 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   //setting quill text editor
-  const quillAdd = new Quill('#desc-add', {
-    theme: 'snow'
-  });
-
-  const quillEdit = new Quill('#desc-edit', {
-    theme: 'snow'
-  });
+  // const quillAdd = new Quill('#desc-add', {
+  //   theme: 'snow'
+  // });
+  //
+  // const quillEdit = new Quill('#desc-edit', {
+  //   theme: 'snow'
+  // });
 
   //get data from organ api
   $.getJSON(`${host}kategori-produk/select.php`, function( data ) {
@@ -53,15 +53,18 @@ $(document).ready(function() {
   })
 
   //event clik for add button
-  $('#add-btn').on('click', function(){
+  $('#add-btn').on('click', function(e){
+    e.preventDefault()
     $('#add-modal').modal('show') //show modal add form
   })
 
   //event click for save button
-  $('#save-btn').on('click', function(){
+  $('#save-btn').on('click', function(e){
+    e.preventDefault()
     //get text data from input form
     let nama = $('#nama-add').val()
-    let deskripsi = quillAdd.root.innerHTML
+    // let deskripsi = quillAdd.root.innerHTML
+    let deskripsi = $('#desc-add').val();
     let usaha = $('#usaha-add').val()
     let tanaman = $('#tanaman-add').val()
     let kategori = $('#kategori-add').val()
@@ -103,11 +106,12 @@ $(document).ready(function() {
         $.notify("Data berhasil disimpan", { position: "right bottom", className: "success" });
         //clean input field
         $('#nama-add').val("")
-        quillAdd.setText("")
+        // quillAdd.setText("")
+        $('#desc-add').val("");
         $('#usaha-add').val("")
         $('#kategori-add').val("")
         $('#tanaman-add').val("")
-        $('#img-add').val("")
+        $('#img-add').val(null)
         //reload datatables
         table.ajax.reload()
       })
@@ -132,18 +136,20 @@ $(document).ready(function() {
   })
 
   //event click for edit button
-  $('#mydata').on('click', '#edit-btn', function(){
+  $('#mydata').on('click', '#edit-btn', function(e){
+    e.preventDefault()
     $('#edit-modal').modal('show') //show modal edit form
 
     //retrive back data to input field form edit
     $('#id-produk-edit').val($(this).val())
     $('#nama-edit').val($(this).attr('nama'))
-    quillEdit.setText($(this).attr('desc'))
+    // quillEdit.setText($(this).attr('desc'))
+    $('#desc-edit').val($(this).attr('desc'));
     $('#usaha-edit').val($(this).attr('usaha'))
     $(`#tanaman-edit option:contains(${$(this).attr('tanaman')})`).attr('selected', 'selected')
     $(`#kategori-edit option:contains(${$(this).attr('kategori')})`).attr('selected', 'selected')
     $('#img-edit').attr('title', $(this).attr('img'))
-    $('#img-show').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/produk/img/${$(this).attr('img')}`)
+    $('#img-show').attr('src', `http://mypajale.id/apimypajale/api/produk/img/${$(this).attr('img')}`)
 
   })
 
@@ -152,7 +158,8 @@ $(document).ready(function() {
     //get the data from input field
     let id = $('#id-produk-edit').val()
     let nama = $('#nama-edit').val()
-    let deskripsi = quillEdit.root.innerHTML
+    // let deskripsi = quillEdit.root.innerHTML
+    let deskripsi = $('#desc-edit').val();
     let usaha = $('#usaha-edit').val()
     let tanaman = $('#tanaman-edit').val()
     let kategori = $('#kategori-edit').val()
@@ -195,6 +202,7 @@ $(document).ready(function() {
         //show notif
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         table.ajax.reload()
+        $('#edit-modal').modal('hide');
       })
     } else{
       //set and show notification is input is empty
@@ -214,7 +222,8 @@ $(document).ready(function() {
     }
   })
 
-  $('#mydata').on('click', '#detail-btn', function(){
+  $('#mydata').on('click', '#detail-btn', function(e){
+    e.preventDefault();
     $('#detail-modal').modal('show')
 
     let id = $(this).val()
@@ -226,18 +235,20 @@ $(document).ready(function() {
       $('#detail-user').text(`Oleh : ${data.nama_lengkap}`)
       $('#detail-usaha').text(`Usaha : ${data.nama_usaha}`)
       $('#detail-kategori').text(`Kategori : ${data.nama_kategori_produk}`)
-      $('#detail-img').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/produk/img/${data.gambar_produk}`)
+      $('#detail-img').attr('src', `http://mypajale.id/apimypajale/api/produk/img/${data.gambar_produk}`)
       $('#detail-desc').text(data.deskripsi_produk)
     })
   })
 
-  $('#mydata').on('click', '#delete-btn', function(){
+  $('#mydata').on('click', '#delete-btn', function(e){
+    e.preventDefault()
     $('#delete-modal').modal('show')
 
     $('#id-produk-delete').val($(this).val())
   })
 
-  $('#delete-btn').on('click', function(){
+  $('#delete-btn').on('click', function(e){
+    e.preventDefault();
     let idproduk = $('#id-produk-delete').val()
 
     $.post(`${host}produk/delete.php`,
@@ -250,8 +261,8 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button href="#" class="btn btn-primary btn-sm mx-1" id="detail-btn" value="${data.id_produk}"><span class="fas fa-eye h6 mr-1"></span>Detail</button>
-            <button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button href="#" class="btn btn-primary btn-sm m-1" id="detail-btn" value="${data.id_produk}"><span class="fas fa-eye h6 mr-1"></span>Detail</button>
+            <button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id_produk}"
                     nama="${data.nama_produk}"
                     desc="${data.deskripsi_produk}"
@@ -259,7 +270,7 @@ $(document).ready(function() {
                     img="${data.gambar_produk}"
                     tanaman="${data.tanaman}"
                     kategori="${data.nama_kategori_produk}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_produk}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_produk}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

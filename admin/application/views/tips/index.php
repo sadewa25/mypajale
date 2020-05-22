@@ -34,7 +34,8 @@
             </div>
             <div class="form-group">
               <label for="desc-add">Deskripsi</label>
-              <div id="desc-add"></div>
+              <!-- <div id="desc-add"></div> -->
+              <textarea name="desc-add" rows="8" id="desc-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
               <label for="tanaman-add">Tanaman</label>
@@ -83,7 +84,8 @@
             </div>
             <div class="form-group">
               <label for="desc-add">Deskripsi</label>
-              <div id="desc-edit"></div>
+              <!-- <div id="desc-edit"></div> -->
+              <textarea name="desc-edit" rows="8" id="desc-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
               <label for="tanaman-edit">Tanaman</label>

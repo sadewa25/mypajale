@@ -11,6 +11,7 @@
 
   $users = new Users($dbh);
 
+  $username_user = $_POST['username_user'];
   $nama_lengkap  = $_POST['nama_lengkap'];
   $email_user  = $_POST['email_user'];
   $password_user  = $_POST['password_user'];
@@ -19,10 +20,10 @@
   $kabupaten  = $_POST['kabupaten'];
   $kecamatan  = $_POST['kecamatan'];
   $alamat  = $_POST['alamat'];
+  $id_koordinator = $_POST['id_koordinator'];
   $id_status_users  = $_POST['id_status_users'];
-  $id_users = $_POST['id_users'];
 
-  if (!empty($id_users) &&
+  if (!empty($username_user) &&
       !empty($nama_lengkap) &&
       !empty($email_user) &&
       !empty($password_user) &&
@@ -33,7 +34,7 @@
       !empty($alamat) &&
       !empty($id_status_users)){
 
-    $users->id_users = $id_users;
+    $users->username_user = $username_user;
     $users->nama_lengkap = $nama_lengkap;
     $users->email_user = $email_user;
     $users->password_user = md5($password_user);
@@ -42,6 +43,7 @@
     $users->kabupaten = $kabupaten;
     $users->kecamatan = $kecamatan;
     $users->alamat = $alamat;
+    $users->id_koordinator = $id_koordinator;
     $users->id_status_users = $id_status_users;
 
     if ($users->update()) {

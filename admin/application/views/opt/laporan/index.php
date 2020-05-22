@@ -22,7 +22,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="add-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-primary">
+          <div class="modal-header bg-success">
             <h5 class="modal-title">Tambah laporan</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -100,11 +100,13 @@
             </div>
             <div class="form-group">
               <label for="kesimpulan-add">Kesimpulan</label>
-              <div id="kesimpulan-add"></div>
+              <!-- <div id="kesimpulan-add"></div> -->
+              <textarea name="kesimpulan-add" rows="8" id="kesimpulan-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
               <label for="rekomendasi-add">Rekomendasi</label>
-              <div id="rekomendasi-add"></div>
+              <!-- <div id="rekomendasi-add"></div> -->
+              <textarea name="rekomendasi-add" rows="8" id="rekomendasi-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -131,7 +133,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="edit-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-warning">
             <h5 class="modal-title">Edit Laporan</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -176,7 +178,7 @@
               <span id="nama-opt"></span>
             </div>
             <div class="form-group d-none" id="opt-box-edit">
-              <label for="opt-edit">OPT</label><small class="text-danger">*jangan pilih apapun jika tidak ingin mengganti opt.</small>
+              <label for="opt-edit">OPT</label><small class="text-danger"> *jangan pilih apapun jika tidak ingin mengganti opt.</small>
               <input type="text" class="form-control" id="search-opt-edit" placeholder="Cari...">
               <div id="show-opt-edit" class="mt-2"></div>
             </div>
@@ -216,11 +218,13 @@
             </div>
             <div class="form-group">
               <label for="kesimpulan-edit">Kesimpulan</label>
-              <div id="kesimpulan-edit"></div>
+              <!-- <div id="kesimpulan-edit"></div> -->
+              <textarea name="kesimpulan-edit" rows="8" id="kesimpulan-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
               <label for="rekomendasi-edit">Rekomendasi</label>
-              <div id="rekomendasi-edit"></div>
+              <!-- <div id="rekomendasi-edit"></div> -->
+              <textarea name="rekomendasi-edit" rows="8" id="rekomendasi-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -253,7 +257,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="delete-modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-danger">
             <h5 class="modal-title">Konfirmasi</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>

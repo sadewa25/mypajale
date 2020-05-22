@@ -30,6 +30,8 @@
   $id_status_report = $_POST['id_status_report'];
   $id_laporan_opt = $_POST['id_laporan_opt'];
   $keterangan_tanaman = $_POST['keterangan_tanaman'];
+  $longitude = $_POST['longitude'];
+  $latitude = $_POST['latitude'];
 
   if (!empty($id_user) &&
       !empty($id_penyakit) &&
@@ -58,6 +60,8 @@
         $laporan->id_status_report = $id_status_report;
         $laporan->keterangan_tanaman = $keterangan_tanaman;
         $laporan->id_laporan_opt = $id_laporan_opt;
+        $laporan->longitude = $longitude;
+        $laporan->latitude = $latitude;
 
     if ($laporan->update()) {
       http_response_code(201);

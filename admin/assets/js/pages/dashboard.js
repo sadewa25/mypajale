@@ -29,10 +29,10 @@ $(document).ready(function(){
     })
   }
 
-  getData('http://mypajale.sahabatj.com/apimypajale/api/berita/select.php', 'data-berita', 'Berita')
-  getData('http://mypajale.sahabatj.com/apimypajale/api/gejala/select.php', 'data-gejala', 'Gejala')
-  getData('http://mypajale.sahabatj.com/apimypajale/api/opt/select.php', 'data-opt', 'OPT')
-  getData('http://mypajale.sahabatj.com/apimypajale/api/produk/select.php', 'data-produk', 'Produk')
-  getData('http://mypajale.sahabatj.com/apimypajale/api/tips/select.php', 'data-tips', 'Tips')
-  getData('http://mypajale.sahabatj.com/apimypajale/api/users/select.php', 'data-users', 'User')
+  getData('http://mypajale.id/apimypajale/api/berita/select.php', 'data-berita', 'Berita')
+  getData('http://mypajale.id/apimypajale/api/gejala/select.php', 'data-gejala', 'Gejala')
+  getData('http://mypajale.id/apimypajale/api/opt/select.php', 'data-opt', 'OPT')
+  getData('http://mypajale.id/apimypajale/api/produk/select.php', 'data-produk', 'Produk')
+  getData('http://mypajale.id/apimypajale/api/tips/select.php', 'data-tips', 'Tips')
+  getData('http://mypajale.id/apimypajale/api/users/select.php', 'data-users', 'User')
 })

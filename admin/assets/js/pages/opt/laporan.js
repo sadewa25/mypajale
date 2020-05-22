@@ -1,6 +1,6 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   const chooseKec = (selector, type) => {
     $(selector).on('change', function(){
@@ -126,12 +126,16 @@ $(document).ready(function() {
     let file = new FormData() //form data for file input
 
     if(type == 'add') {
-      data.kesimpulan = quillSimpulAdd.root.innerHTML
-      data.rekomendasi = quillRekomAdd.root.innerHTML
+      // data.kesimpulan = quillSimpulAdd.root.innerHTML
+      // data.rekomendasi = quillRekomAdd.root.innerHTML
+      data.kesimpulan = $('#kesimpulan-add').val();
+      data.rekomendasi = $('#rekomendasi-add').val();
     }
     if(type == 'edit') {
-      data.kesimpulan = quillSimpulEdit.root.innerHTML
-      data.rekomendasi = quillRekomEdit.root.innerHTML
+      // data.kesimpulan = quillSimpulEdit.root.innerHTML
+      // data.rekomendasi = quillRekomEdit.root.innerHTML
+      data.kesimpulan = $('#kesimpulan-edit').val();
+      data.rekomendasi = $('#rekomendasi-edit').val();
       if (data.id_penyakit === undefined) {
         data.id_penyakit = $('#id-opt-edit').val()
       }
@@ -229,19 +233,19 @@ $(document).ready(function() {
   })
 
   //setting quill text editor
-  const quillSimpulAdd = new Quill('#kesimpulan-add', {
-    theme: 'snow'
-  });
-  const quillSimpulEdit = new Quill('#kesimpulan-edit', {
-    theme: 'snow'
-  });
-
-  const quillRekomAdd = new Quill('#rekomendasi-add', {
-    theme: 'snow'
-  });
-  const quillRekomEdit = new Quill('#rekomendasi-edit', {
-    theme: 'snow'
-  });
+  // const quillSimpulAdd = new Quill('#kesimpulan-add', {
+  //   theme: 'snow'
+  // });
+  // const quillSimpulEdit = new Quill('#kesimpulan-edit', {
+  //   theme: 'snow'
+  // });
+  //
+  // const quillRekomAdd = new Quill('#rekomendasi-add', {
+  //   theme: 'snow'
+  // });
+  // const quillRekomEdit = new Quill('#rekomendasi-edit', {
+  //   theme: 'snow'
+  // });
 
   //get data  from kabupaten api and display to select input
   $.getJSON(`${host}kabupaten/select.php`, function( data ) {
@@ -280,10 +284,12 @@ $(document).ready(function() {
     $('#add-modal').modal('show')
   })
 
-  $('#save-btn').on('click', function(){
+  //insert to api
+  $('#save-btn').on('click', function(e){
+    e.preventDefault()
     let inputValue = getInput('add')
     if(inputValue){
-      console.log(inputValue)
+      // console.log(inputValue)
       $.post(`${host}laporan-opt/insert.php`,
       inputValue,
       function(success){
@@ -301,8 +307,12 @@ $(document).ready(function() {
         $(`#hamparan-add`).val('')
         $(`#musuh-add`).val('')
         $(`#tgl-add`).val('')
-        quillSimpulAdd.setText("")
-        quillRekomAdd.setText("")
+        $('#img-add').val(null);
+        // quillSimpulAdd.setText("")
+        // quillRekomAdd.setText("")
+        $('#kesimpulan-add').val('');
+        $('#rekomendasi-add').val('');
+        $(`#opt-box-add`).addClass('d-none')
         $('#data-opt-add input').each(function() {
             $(this).prop('checked', false)
         });
@@ -312,7 +322,9 @@ $(document).ready(function() {
 
   })
 
-  $('#mydata').on('click', '#edit-btn', function(){
+  //display data to form
+  $('#mydata').on('click', '#edit-btn', function(e){
+    e.preventDefault()
     $('#edit-modal').modal('show')
 
     $('#id-laporan-edit').val($(this).val())
@@ -347,9 +359,11 @@ $(document).ready(function() {
     $(`#hamparan-edit`).val($(this).attr('hamparan'))
     $(`#musuh-edit`).val($(this).attr('musuh'))
     $(`#tgl-edit`).val($(this).attr('tgl'))
-    quillSimpulEdit.setText($(this).attr('simpulan'))
-    quillRekomEdit.setText($(this).attr('rekom'))
-    $('#img-show').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/laporan-opt/img/${$(this).attr('img')}`)
+    // quillSimpulEdit.setText($(this).attr('simpulan'))
+    // quillRekomEdit.setText($(this).attr('rekom'))
+    $('#kesimpulan-edit').val($(this).attr('simpulan'))
+    $('#rekomendasi-edit').val($(this).attr('rekom'))
+    $('#img-show').attr('src', `http://mypajale.id/apimypajale/api/laporan-opt/img/${$(this).attr('img')}`)
     allOpt($('#tanaman-edit').val(), 'edit')
     $('#nama-opt').text($(this).attr('opt'))
     $('#id-opt-edit').val($(this).attr('idopt'))
@@ -357,26 +371,30 @@ $(document).ready(function() {
 
   })
 
-  $('#update-btn').on('click', function(){
+  $('#update-btn').on('click', function(e){
+    e.preventDefault()
     let inputValue = getInput('edit')
     if(inputValue){
-      console.log(inputValue)
+      // console.log(inputValue)
       $.post(`${host}laporan-opt/update.php`,
       inputValue,
       function(success){
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         table.ajax.reload()
+        $('#edit-modal').modal('hide')
       })
     }
   })
 
-  $('#mydata').on('click', '#delete-btn', function(){
+  $('#mydata').on('click', '#delete-btn', function(e){
+    e.preventDefault()
     $('#delete-modal').modal('show')
 
     $('#id-laporan-delete').val($(this).val())
   })
 
-  $('#delete-btn').on('click', function(){
+  $('#delete-btn').on('click', function(e){
+    e.preventDefault()
     let id = $('#id-laporan-delete').val()
 
     $.post(`${host}laporan-opt/delete.php`,
@@ -390,7 +408,7 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id_laporan_opt}"
                     kab="${data.kabupaten}"
                     kec="${data.kecamatan}"
@@ -411,7 +429,7 @@ $(document).ready(function() {
                     simpulan="${data.kesimpulan}"
                     rekom="${data.rekomendasi}"
                     idopt=${data.id_penyakit}><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_laporan_opt}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_laporan_opt}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

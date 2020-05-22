@@ -46,7 +46,7 @@ class Users{
   function insert(){
     $sql = "INSERT INTO $this->table_name (id_users, nama_lengkap, email_user, password_user,
                                             telephone_user, profesi, kabupaten, kecamatan,
-                                            alamat, id_status_users, id_koordinator) VALUES (?,?,?,?,?,?,?,?,?,?,null)";
+                                            alamat, id_status_users, id_koordinator) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
     $this->username_user = htmlspecialchars(strip_tags($this->username_user));
     $this->nama_lengkap = htmlspecialchars(strip_tags($this->nama_lengkap));
@@ -60,33 +60,36 @@ class Users{
     $this->id_status_users = htmlspecialchars(strip_tags($this->id_status_users));
     $this->id_koordinator = htmlspecialchars(strip_tags($this->id_koordinator));
 
-
     if($this->dbh->prepare($sql)->execute([$this->username_user, $this->nama_lengkap, $this->email_user, $this->password_user,
                                             $this->telephone_user, $this->profesi, $this->kabupaten,
-                                            $this->kecamatan, $this->alamat, $this->id_status_users])){
+                                            $this->kecamatan, $this->alamat, $this->id_status_users, $this->id_koordinator])){
       return true;
     };
     return false;
   }
 
   function update(){
-    $sql = "UPDATE $this->table_name SET nama_lengkap = ?, email_user = ?, password_user = ?, telephone_user = ?, profesi = ?, kabupaten = ?, kecamatan = ?, alamat = ?, id_status_users = ? WHERE id_users = ?";
+    $sql = "UPDATE $this->table_name SET nama_lengkap = ?, email_user = ?,
+                                         password_user = ?, telephone_user = ?,
+                                         profesi = ?, kabupaten = ?, kecamatan = ?,
+                                         alamat = ?, id_status_users = ?, id_koordinator = ? WHERE id_users = ?";
 
-    $this->id_users = htmlspecialchars(strip_tags($this->id_users));
-    $this->nama_lengkap = htmlspecialchars(strip_tags($this->nama_lengkap));
-    $this->email_user = htmlspecialchars(strip_tags($this->email_user));
-    $this->password_user = htmlspecialchars(strip_tags($this->password_user));
-    $this->telephone_user = htmlspecialchars(strip_tags($this->telephone_user));
-    $this->profesi = htmlspecialchars(strip_tags($this->profesi));
-    $this->kabupaten = htmlspecialchars(strip_tags($this->kabupaten));
-    $this->kecamatan = htmlspecialchars(strip_tags($this->kecamatan));
-    $this->alamat = htmlspecialchars(strip_tags($this->alamat));
-    $this->id_status_users = htmlspecialchars(strip_tags($this->id_status_users));
+   $this->username_user = htmlspecialchars(strip_tags($this->username_user));
+   $this->nama_lengkap = htmlspecialchars(strip_tags($this->nama_lengkap));
+   $this->email_user = htmlspecialchars(strip_tags($this->email_user));
+   $this->password_user = htmlspecialchars(strip_tags($this->password_user));
+   $this->telephone_user = htmlspecialchars(strip_tags($this->telephone_user));
+   $this->profesi = htmlspecialchars(strip_tags($this->profesi));
+   $this->kabupaten = htmlspecialchars(strip_tags($this->kabupaten));
+   $this->kecamatan = htmlspecialchars(strip_tags($this->kecamatan));
+   $this->alamat = htmlspecialchars(strip_tags($this->alamat));
+   $this->id_status_users = htmlspecialchars(strip_tags($this->id_status_users));
+   $this->id_koordinator = htmlspecialchars(strip_tags($this->id_koordinator));
 
     if($this->dbh->prepare($sql)->execute([$this->nama_lengkap, $this->email_user, $this->password_user,
                                             $this->telephone_user, $this->profesi, $this->kabupaten,
                                             $this->kecamatan, $this->alamat, $this->id_status_users,
-                                            $this->id_users])){
+                                            $this->id_koordinator, $this->username_user])){
       return true;
     }
     return false;

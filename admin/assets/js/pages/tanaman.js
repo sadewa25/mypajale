@@ -28,7 +28,8 @@ $(document).ready(function() {
     $.post(`http://${host}/apimypajale/api/tanaman/insert.php`,
     {nama: namaTanaman},
     function(success){
-      $('#add-modal').modal('hide')
+      $('#nama-add').val('')
+      // $('#add-modal').modal('hide')
       table.ajax.reload()
     })
   })
@@ -63,8 +64,8 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn" value="${data.id}" name="${data.nama}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn" value="${data.id}" name="${data.nama}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

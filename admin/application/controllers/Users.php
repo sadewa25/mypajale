@@ -12,6 +12,7 @@ class Users extends CI_Controller {
 
     $this->isAdminLoggedIn = $this->session->userdata('isAdminLoggedIn');
     $this->userId = $this->session->userdata('userId');
+    $this->userName = $this->session->userdata('userName');
   }
 
 	public function index()
@@ -42,19 +43,24 @@ class Users extends CI_Controller {
           $password = $this->input->post('password');
           // $status = $this->input->post('status');
           $usersData = $this->usersModel->getUsers($email,$password);
-          $status_user = $usersData->result[0]->id_status_users;
-          $id_users = $usersData->result[0]->id_user;
-          // print_r($usersData);
-
-          // print_r($user);
-          if( $status_user == 1 || $status_user == 2 || $status_user == 3 || $status_user == 4){
-             ///print_r($value[$i]);
-             $this->session->set_userdata('userId', $id_users);
-             $this->session->set_userdata('isAdminLoggedIn', TRUE);
-             redirect('welcome');
-          } else{
-           $data['message'] = 'Kombinasi email dan password salah / anda tidak mempunyai akses masuk.';
+          if (sizeof($usersData->result) <= 0) {
+            $data['message'] = 'Kombinasi email dan password salah';
+          } else {
+            $status_user = $usersData->result[0]->id_status_users;
+            $id_users = $usersData->result[0]->id_user;
+            $user_name = $usersData->result[0]->nama_lengkap;
+            if( $status_user == 1 || $status_user == 2 || $status_user == 4){
+               ///print_r($value[$i]);
+               $this->session->set_userdata('userId', $id_users);
+               $this->session->set_userdata('userName', $user_name);
+               $this->session->set_userdata('isAdminLoggedIn', TRUE);
+               redirect('welcome');
+            } else{
+             $data['message'] = 'Anda tidak mempunyai akses masuk.';
+            }
           }
+          // print_r($usersData);
+          // print_r($user);
       }else{
         $data['message'] = 'Tolong isi semua kotak input.';
       }

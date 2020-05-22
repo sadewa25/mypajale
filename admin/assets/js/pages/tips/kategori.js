@@ -1,15 +1,15 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   //setting quill text editor
-  const quillAdd = new Quill('#ket-add', {
-    theme: 'snow'
-  });
-
-  const quillEdit = new Quill('#ket-edit', {
-    theme: 'snow'
-  });
+  // const quillAdd = new Quill('#ket-add', {
+  //   theme: 'snow'
+  // });
+  //
+  // const quillEdit = new Quill('#ket-edit', {
+  //   theme: 'snow'
+  // });
 
   //display data to datatable
   const table = $('#mydata').DataTable({
@@ -26,15 +26,18 @@ $(document).ready(function() {
   })
 
   //event clik for add button
-  $('#add-btn').on('click', function(){
+  $('#add-btn').on('click', function(e){
+    e.preventDefault()
     $('#add-modal').modal('show') //show modal add form
   })
 
   //event click for save button
-  $('#save-btn').on('click', function(){
+  $('#save-btn').on('click', function(e){
+    e.preventDefault()
     //get text data from input form
     let nama = $('#nama-add').val()
-    let ket = quillAdd.root.innerHTML
+    // let ket = quillAdd.root.innerHTML
+    let ket = $('#ket-add').val()
 
     //check if input is empty or not
     if(nama != '') {
@@ -47,6 +50,7 @@ $(document).ready(function() {
         $.notify("Data berhasil disimpan", { position: "right bottom", className: "success" });
         //clean input field
         $('#nama-add').val("")
+        $('#ket-add').val("")
         //reload datatables
         table.ajax.reload()
       })
@@ -60,20 +64,23 @@ $(document).ready(function() {
   })
 
   //event click for edit button
-  $('#mydata').on('click', '#edit-btn', function(){
+  $('#mydata').on('click', '#edit-btn', function(e){
+    e.preventDefault()
     $('#edit-modal').modal('show') //show modal edit form
     //retrive back data to input field form edit
     $('#id-kategori-edit').val($(this).val())
     $('#nama-edit').val($(this).attr('nama'))
-    quillEdit.setText($(this).attr('ket'))
+    $('#ket-edit').val($(this).attr('ket'))
   })
 
   //event click for update button
-  $('#update-btn').on('click', function(){
+  $('#update-btn').on('click', function(e){
+    e.preventDefault(e)
     //get the data from input field
     let id = $('#id-kategori-edit').val()
     let nama = $('#nama-edit').val()
-    let ket = quillEdit.root.innerHTML
+    // let ket = quillEdit.root.innerHTML
+    let ket = $('#ket-edit').val()
 
     //check if input is empty or not
     if(nama != '') {
@@ -86,6 +93,7 @@ $(document).ready(function() {
         //show notif
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         table.ajax.reload()
+        $('#edit-modal').modal('hide');
       })
     } else{
       //set and show notification is input is empty
@@ -94,13 +102,15 @@ $(document).ready(function() {
     }
   })
 
-  $('#mydata').on('click', '#delete-btn', function(){
+  $('#mydata').on('click', '#delete-btn', function(e){
+    e.preventDefault()
     $('#delete-modal').modal('show')
 
     $('#id-kategori-delete').val($(this).val())
   })
 
-  $('#delete-btn').on('click', function(){
+  $('#delete-btn').on('click', function(e){
+    e.preventDefault()
     let id = $('#id-kategori-delete').val()
 
     $.post(`${host}kategori-tips/delete.php`,
@@ -113,11 +123,11 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id_kategori_tips}"
                     nama="${data.nama_kategori_tips}"
                     ket="${data.keterangan_kategori_tips}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_kategori_tips}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_kategori_tips}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

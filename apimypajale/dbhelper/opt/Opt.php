@@ -73,7 +73,7 @@
         $id = $lastId[1];
         $id+=1;
         $newId= "OPT".$id;
-        echo $newId;
+        // echo $newId;
         $sql = "INSERT INTO $this->table_name (id, nama, gejala, gambar_opt,
                                                 solusi, kategori, organisme,
                                                 tanaman, deskripsi_opt) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -85,7 +85,7 @@
         $this->organisme = htmlspecialchars(strip_tags($this->organisme));
         $this->tanaman = htmlspecialchars(strip_tags($this->tanaman));
         $this->deskripsi_opt = htmlspecialchars(strip_tags($this->deskripsi_opt));
-        echo $sql;
+        // echo $sql;
 
         if($this->dbh->prepare($sql)->execute([$newId, $this->nama, $this->gejala,
                                               $this->gambar_opt, $this->solusi, $this->kategori,

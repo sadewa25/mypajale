@@ -1,6 +1,6 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   //label for organ
   let header = []
@@ -51,7 +51,7 @@ $(document).ready(function() {
       {id_tanaman: "T1"},
       function(json){
         let result = json.result
-        let html = `<div id="data-gejala-${type}" class="d-none">`
+        let html = `<div id="data-gejala-${type}">`
 
         let akar = showGejala('Akar', result, type)
         let batang = showGejala('Batang', result, type)
@@ -70,7 +70,7 @@ $(document).ready(function() {
       {id_tanaman: "T2"},
       function(json){
         let result = json.result
-        let html = `<div id="data-gejala-${type}" class="d-none">`
+        let html = `<div id="data-gejala-${type}">`
 
         let akar = showGejala('Akar', result, type)
         let batang = showGejala('Batang', result, type)
@@ -90,7 +90,7 @@ $(document).ready(function() {
       {id_tanaman: "T3"},
       function(json){
         let result = json.result
-        let html = `<div id="data-gejala-${type}" class="d-none">`
+        let html = `<div id="data-gejala-${type}">`
 
         let akar = showGejala('Akar', result, type)
         let batang = showGejala('Batang', result, type)
@@ -114,8 +114,9 @@ $(document).ready(function() {
     })
   }
 
-  const filterGejala = (selector, type) => {
+  const filterGejala = (selector, type, gejalaBefore) => {
     $(selector).on('change', function(){
+      console.log(gejalaBefore)
       for (let i = 0; i < header.length; i++) {
         if($(this).val() === header[i]){
           $(`#${header[i]}-btn-${type}`).removeClass('d-none').addClass('d-block')
@@ -127,6 +128,14 @@ $(document).ready(function() {
           $(`#data-gejala-${type}`).removeClass('d-none')
         }
       }
+      $('#data-gejala-edit input[type=checkbox]').each(function(e){
+        if (gejalaBefore.includes($(this).val())) {
+          $(this).attr('checked',true);
+        }else {
+          $(this).attr('checked',false);
+        }
+
+      })
     })
   }
 
@@ -141,19 +150,19 @@ $(document).ready(function() {
   }
 
   //setting quill text editor
-  const quillAdd = new Quill('#solusi-add', {
-    theme: 'snow'
-  });
-  const quillAddDesc = new Quill('#deskripsi-add', {
-    theme: 'snow'
-  });
-
-  const quillEdit = new Quill('#solusi-edit', {
-    theme: 'snow'
-  });
-  const quillEditDesc = new Quill('#deskripsi-edit', {
-    theme: 'snow'
-  });
+  // const quillAdd = new Quill('#solusi-add', {
+  //   theme: 'snow'
+  // });
+  // const quillAddDesc = new Quill('#deskripsi-add', {
+  //   theme: 'snow'
+  // });
+  //
+  // const quillEdit = new Quill('#solusi-edit', {
+  //   theme: 'snow'
+  // });
+  // const quillEditDesc = new Quill('#deskripsi-edit', {
+  //   theme: 'snow'
+  // });
 
 
   const table = $('#mydata').DataTable({
@@ -184,8 +193,7 @@ $(document).ready(function() {
   showAllGejala('#tanaman-add', 'add')
   showAllGejala('#tanaman-edit', 'edit')
 
-  filterGejala('#data-organ-add', 'add')
-  filterGejala('#data-organ-edit', 'edit')
+  filterGejala('#data-organ-add', 'add', '')
 
   $('#search-gejala-add').on('input', function(){
     searchGejala($(this).val())
@@ -220,11 +228,15 @@ $(document).ready(function() {
     $('#add-modal').modal('show')
   })
   //save data
-  $('#save-btn').on('click', function(){
+  $('#save-btn').on('click', function(e){
+    e.preventDefault();
     //get data from input field
     let nama = $('#nama-add').val()
-    let deskripsi = quillAddDesc.root.innerHTML
-    let solusi = quillAdd.root.innerHTML
+    // let deskripsi = quillAddDesc.root.innerHTML
+    // let solusi = quillAdd.root.innerHTML
+    let deskripsi = $('#deskripsi-add').val()
+    let solusi = $('#solusi-add').val();
+    // console.log(deskripsi, solusi);
     let tanaman = $('#tanaman-add').val()
     let organisme = $('#organisme-add').val()
     let gejala = "";
@@ -239,9 +251,17 @@ $(document).ready(function() {
       });
       gejala = gejala.substring(0,gejala.length-1)
       //check if file is empty or not
-      if ($('#img-add')[0].files.length != 0){
-        file.append('file', $('#img-add')[0].files[0])
-        gambar = $('#img-add')[0].files[0].name
+      let nameImages = [];
+      if ($('.img-add')[0].files.length != 0){
+        $.each($('.img-add'), function (i, item) {
+          if (!$(this)[0].files.length == 0) {
+            file.append('file[]', $(this)[0].files[0])
+            nameImages.push($(this)[0].files[0].name);
+          }else {
+            nameImages.push('noimg.jpg');
+          }
+        });
+        nameImages = nameImages.join(',');
         //upload file to api
         $.ajax({
           url: `${host}opt/upload.php`,
@@ -254,13 +274,13 @@ $(document).ready(function() {
           }
         })
       }else{
-        gambar = 'noimg.jpg'
+        nameImages = 'noimg.jpg,noimg.jpg,noimg.jpg'
       }
 
       $.post(`${host}opt/insert.php`,
       { nama: nama,
-        gejala: gejala,
-        gambar_opt: gambar,
+        id_gejala: gejala,
+        gambar_opt: nameImages,
         solusi: solusi,
         id_kategori: kategori,
         id_organisme: organisme,
@@ -276,11 +296,17 @@ $(document).ready(function() {
         $(`#kategori-add`).val("")
         $('#data-organ-add').val("")
         $('#search-gejala-add').val("")
-        quillAddDesc.setText("")
-        quillAdd.setText("")
-        $('#data-gejala-add input').each(function() {
+        // quillAddDesc.setText("")
+        // quillAdd.setText("")
+        $('#deskripsi-add').val("");
+        $('#solusi-add').val("");
+        $('#data-gejala-add input[type=checkbox]').each(function() {
             $(this).prop('checked', false)
         });
+        $('.img-add input[type=file]').each(function() {
+          $(this).val(null);
+        })
+        $(`#data-gejala-add`).addClass('d-none')
         //reload datatables
         table.ajax.reload()
       })
@@ -305,28 +331,32 @@ $(document).ready(function() {
     }
   })
 
-  $('#mydata').on('click', '#edit-btn', function(){
+  //show data from api
+
+  $('#mydata').on('click', '#edit-btn', function(e){
+    e.preventDefault();
     $('#edit-modal').modal('show')
     $('#gejala-before').empty()
     $('#value-gejala-before').val($(this).attr('gejala'))
     let gejala = $(this).attr('gejala').split(",")
-
-    if ($('#data-gejala-edit input[type=checkbox]').length ) {
-      $.each(gejala, function(i, val){
-        console.log($("input[value='" + val + "']").length)
-        $("input[value='" + val + "']").prop('checked', true);
-      });
-    }
+    filterGejala('#data-organ-edit', 'edit', gejala)
 
     $('#id-opt-edit').val($(this).val())
     $('#nama-edit').val($(this).attr('name'))
-    quillEditDesc.setText($(this).attr('deskripsi'))
-    quillEdit.setText($(this).attr('solusi'))
+    // quillEditDesc.setText($(this).attr('deskripsi'))
+    // quillEdit.setText($(this).attr('solusi'))
+    $('#deskripsi-edit').val($(this).attr('deskripsi'))
+    $('#solusi-edit').val($(this).attr('solusi'))
     $(`#organisme-edit option:contains(${$(this).attr('organisme')})`).attr('selected', 'selected')
     $(`#tanaman-edit option:contains(${$(this).attr('tanaman')})`).attr('selected', 'selected')
     $(`#kategori-edit option:contains(${$(this).attr('kategori')})`).attr('selected', 'selected')
-    $('#img-edit').attr('title', $(this).attr('img'))
-    $('#img-show').attr('src', `http://mypajale.sahabatj.com/apimypajale/api/opt/img/${$(this).attr('img')}`)
+    // $('#img-edit').attr('title', $(this).attr('img'))
+    $('#img-before').attr('data', $(this).attr('img'));
+    $.each($(this).attr('img').split(','), function(i, item) {
+      // console.log(item);
+      $(`#img-show-${i}`).attr('src', `http://mypajale.id/apimypajale/api/opt/img/${item}`)
+    })
+    // $('#img-show').attr('src', `http://mypajale.id/apimypajale/api/opt/img/${$(this).attr('img')}`)
     gejalaAllTanaman($('#tanaman-edit').val(), 'edit')
 
     for(let i = 0; i < gejala.length; i++){
@@ -339,17 +369,23 @@ $(document).ready(function() {
 
   })
   //update data
-  $('#update-btn').on('click', function(){
+  $('#update-btn').on('click', function(e){
+    e.preventDefault()
+    let gejalaBefore = $('#value-gejala-before').val()
+    // console.log(gejalaBefore)
     //get data from input field
     let id = $('#id-opt-edit').val()
     let nama = $('#nama-edit').val()
-    let deskripsi = quillEditDesc.root.innerHTML
-    let solusi = quillEdit.root.innerHTML
+    // let deskripsi = quillEditDesc.root.innerHTML
+    // let solusi = quillEdit.root.innerHTML
+    let deskripsi = $('#deskripsi-edit').val();
+    let solusi = $('#solusi-edit').val();
     let tanaman = $('#tanaman-edit').val()
     let organisme = $('#organisme-edit').val()
     let gejala = "";
     let kategori = $('#kategori-edit').val()
-    let gambar =  ''
+    // let gambar =  ''
+    let nameImages = [];
     let file = new FormData() //form data for file input
 
     //check if input is empty or not
@@ -362,11 +398,38 @@ $(document).ready(function() {
       }else{
         gejala = $('#value-gejala-before').val()
       }
+      // console.log('after',gejala);
+      // console.log('before',gejalaBefore);
 
-      //check if file is empty or not
-      if ($('#img-edit')[0].files.length != 0){
-        file.append('file', $('#img-edit')[0].files[0])
-        gambar = $('#img-edit')[0].files[0].name
+      // //check if file is empty or not
+      // if ($('#img-edit')[0].files.length != 0){
+      //   file.append('file', $('#img-edit')[0].files[0])
+      //   gambar = $('#img-edit')[0].files[0].name
+      //   //upload file to api
+      //   $.ajax({
+      //     url: `${host}opt/upload.php`,
+      //     type: 'post',
+      //     data: file,
+      //     contentType: false,
+      //     processData: false,
+      //     success: function(response){
+      //       return true
+      //     }
+      //   })
+      // }else{
+      //   gambar = 'noimg.jpg'
+      // }
+
+      if ($('.img-edit')[0].files.length != 0){
+        $.each($('.img-edit'), function (i, item) {
+          if (!$(this)[0].files.length == 0) {
+            file.append('file[]', $(this)[0].files[0])
+            nameImages.push($(this)[0].files[0].name);
+          }else {
+            nameImages.push('noimg.jpg');
+          }
+        });
+        nameImages = nameImages.join(',');
         //upload file to api
         $.ajax({
           url: `${host}opt/upload.php`,
@@ -379,13 +442,13 @@ $(document).ready(function() {
           }
         })
       }else{
-        gambar = 'noimg.jpg'
+        nameImages = $('#img-before').attr('data')
       }
 
       $.post(`${host}opt/update.php`,
       { nama: nama,
-        gejala: gejala,
-        gambar_opt: gambar,
+        id_gejala: gejala,
+        gambar_opt: nameImages,
         solusi: solusi,
         id_kategori: kategori,
         id_organisme: organisme,
@@ -396,7 +459,11 @@ $(document).ready(function() {
         //show notif
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         //reload datatables
+        $('.img-edit input[type=file]').each(function() {
+          $(this).val(null);
+        })
         table.ajax.reload()
+        $('#edit-modal').modal('hide')
       })
     }else{
       //set and show notification is input is empty
@@ -435,7 +502,7 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id}"
                     name="${data.nama}"
                     gejala="${data.gejala}"
@@ -445,7 +512,7 @@ $(document).ready(function() {
                     organisme="${data.organisme}"
                     tanaman="${data.tanaman}"
                     deskripsi="${data.deskripsi_opt}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

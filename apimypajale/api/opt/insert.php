@@ -37,7 +37,7 @@
 
     if ($opt->insert()) {
       http_response_code(201);
-      echo json_encode(array("value" => 1, "message" => "opt tanaman berhasil ditambahkan".$opt->deskripsi_opt));
+      echo json_encode(array("value" => 1, "message" => "opt tanaman berhasil ditambahkan"));
 
     } else {
       http_response_code(503);

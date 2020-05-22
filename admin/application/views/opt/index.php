@@ -34,11 +34,13 @@
             </div>
             <div class="form-group">
               <label for="deskripsi-add">Deskripsi</label>
-              <div id="deskripsi-add"></div>
+              <!-- <div id="deskripsi-add"></div> -->
+              <textarea name="deskripsi-add" rows="8" id="deskripsi-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
-              <label for="solusi-add">Solusi</label>
-              <div id="solusi-add"></div>
+              <label for="solusi-add">Penanganan / Rekomendasi</label>
+              <!-- <div id="solusi-add"></div> -->
+              <textarea name="solusi-add" rows="8" id="solusi-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -77,8 +79,18 @@
                 </select>
               </div>
               <div class="form-group col-md-6">
-                <label for="nama">Gambar</label>
-                <input type="file" class="form-control-file p-1" id="img-add">
+                <label for="nama">Gambar 1</label>
+                <input type="file" class="form-control-file p-1 img-add" >
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nama">Gambar 2 </label>
+                <input type="file" class="form-control-file p-1 img-add" >
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nama">Gambar 3</label>
+                <input type="file" class="form-control-file p-1 img-add" >
               </div>
             </div>
           </div>
@@ -111,11 +123,13 @@
             </div>
             <div class="form-group">
               <label for="deskripsi-edit">Deskripsi</label>
-              <div id="deskripsi-edit"></div>
+              <!-- <div id="deskripsi-edit"></div> -->
+              <textarea name="deskripsi-edit" rows="8" id="deskripsi-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-group">
-              <label for="solusi-add">Solusi</label>
-              <div id="solusi-edit"></div>
+              <label for="solusi-add">Penanganan / Rekomendasi</label>
+              <!-- <div id="solusi-edit"></div> -->
+              <textarea name="solusi-edit" rows="8" id="solusi-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -136,7 +150,7 @@
               <ul id="gejala-before"></ul>
               <input type="hidden" id='value-gejala-before' value="">
             </div>
-            <div class="form-group d-none" id="gejala-box-edit">
+            <div class="form-group" id="gejala-box-edit">
               <label for="gejala-add">Gejala</label>
               <div class="form-group">
                 <div class="form-row">
@@ -149,7 +163,7 @@
                   </div>
                 </div>
                 <div id="show-gejala-edit"></div>
-                <small class="text-danger">*jangan pilih apapun jika tidak ingin mengganti gejala.</small>
+                <!-- <small class="text-danger">*jangan pilih apapun jika tidak ingin mengganti gejala.</small> -->
               </div>
             </div>
             <div class="form-row">
@@ -159,15 +173,53 @@
                   <option value="">Pilih Kategori</option>
                 </select>
               </div>
-              <div class="form-group col-md-6">
+              <!-- <div class="form-group col-md-6">
                 <label for="nama">Gambar</label>
-                <input type="file" class="form-control-file p-1" id="img-edit">
+                <input type="file" class="form-control-file p-1">
+                <small class="text-danger">*kosongi jika tidak ingin mengganti gambar.</small>
+              </div>
+            </div> -->
+              <div class="form-group col-md-6">
+                <label for="nama">Gambar 1</label>
+                <input type="file" class="form-control-file p-1 img-edit">
                 <small class="text-danger">*kosongi jika tidak ingin mengganti gambar.</small>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nama">Gambar 2 </label>
+                <input type="file" class="form-control-file p-1 img-edit">
+                <small class="text-danger">*kosongi jika tidak ingin mengganti gambar.</small>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nama">Gambar 3</label>
+                <input type="file" class="form-control-file p-1 img-edit">
+                <small class="text-danger">*kosongi jika tidak ingin mengganti gambar.</small>
+              </div>
+            </div>
+            <!-- <div class="form-group">
               <label for="img-show">Gambar Sebelumnya</label>
               <img id="img-show" alt="gambar_berita" class="w-100">
+            </div> -->
+            <div class="form-group">
+              <label for="img-show" data="" id="img-before">Gambar Sebelumnya</label>
+              <!-- <img id="img-show" alt="gambar_opt" class="w-100"> -->
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="img-show-0">Gambar 1</label>
+                <img id="img-show-0" alt="gambar_opt" class="w-100">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="img-show-1">Gambar 2</label>
+                <img id="img-show-1" alt="gambar_opt" class="w-100">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="img-show-2">Gambar 3</label>
+                <img id="img-show-2" alt="gambar_opt" class="w-100">
+              </div>
             </div>
           </div>
           <div class="modal-footer">

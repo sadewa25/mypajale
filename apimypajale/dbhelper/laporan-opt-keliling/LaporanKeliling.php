@@ -20,6 +20,8 @@
       public $rekomendasi;
       public $id_status_report;
       public $keterangan_tanaman;
+      public $longitude;
+      public $latitude;
       public $nip_koordinator;
       public $table_name = "laporan_opt_keliling";
 
@@ -70,6 +72,8 @@
         	laporan_opt_keliling.rekomendasi,
         	laporan_opt_keliling.id_status_report,
           laporan_opt_keliling.keterangan_tanaman,
+          laporan_opt_keliling.longitude,
+          laporan_opt_keliling.latitude,
         	status_report.nama_status_report
         FROM
         	$this->table_name
@@ -131,10 +135,12 @@
         $sql = "INSERT INTO $this->table_name (id_user, judul_laporan, id_penyakit, id_kec,
                                                 desa, id_jenis_tanaman, varietas, umur,
                                                 intensitas_serangan, luas_terserang, luas_hamparan, gambar,
-                                                tanggal, jenis_musuh_alami, kesimpulan, rekomendasi, id_status_report, keterangan_tanaman)
+                                                tanggal, jenis_musuh_alami, kesimpulan, rekomendasi,
+                                                id_status_report, keterangan_tanaman, longitude, latitude)
                                                 VALUES (?, ?, ?, ?, ?, ?,
                                                         ?, ?, ?, ?, ?, ?,
-                                                        ?, ?, ?, ?, ?, ?)";
+                                                        ?, ?, ?, ?, ?, ?,
+                                                        ?, ?)";
 
         $this->id_user = htmlspecialchars(strip_tags($this->id_user ));
         $this->judul_laporan = htmlspecialchars(strip_tags($this->judul_laporan ));
@@ -154,12 +160,15 @@
         $this->rekomendasi = htmlspecialchars(strip_tags($this->rekomendasi ));
         $this->id_status_report = htmlspecialchars(strip_tags($this->id_status_report));
         $this->keterangan_tanaman = htmlspecialchars(strip_tags($this->keterangan_tanaman));
+        $this->longitude = htmlspecialchars(strip_tags($this->longitude));
+        $this->latitude = htmlspecialchars(strip_tags($this->latitude));
 
         if($this->dbh->prepare($sql)->execute([$this->id_user, $this->judul_laporan, $this->id_penyakit,
                                               $this->id_kec, $this->desa,$this->id_jenis_tanaman, $this->varietas, $this->umur,
                                               $this->intensitas_serangan, $this->luas_tersrang, $this->luas_hamparan,
                                               $this->gambar, $this->tanggal, $this->jenis_musuh_alami,
-                                              $this->kesimpulan, $this->rekomendasi, $this->id_status_report, $this->keterangan_tanaman])){
+                                              $this->kesimpulan, $this->rekomendasi, $this->id_status_report,
+                                              $this->keterangan_tanaman, $this->longitude, $this->latitude])){
           return true;
         };
         return false;
@@ -170,7 +179,7 @@
                                                 desa = ?, id_jenis_tanaman = ?, varietas = ?, umur = ?,
                                                 intensitas_serangan = ?, luas_terserang = ?, luas_hamparan = ?, gambar = ?,
                                                 tanggal = ?, jenis_musuh_alami = ?, kesimpulan = ?, rekomendasi = ?, id_status_report = ?,
-                                                keterangan_tanaman = ? WHERE id_laporan_opt = ?";
+                                                keterangan_tanaman = ?, longitude = ?, latitude = ? WHERE id_laporan_opt = ?";
 
         $this->id_user = htmlspecialchars(strip_tags($this->id_user ));
         $this->judul_laporan = htmlspecialchars(strip_tags($this->judul_laporan ));
@@ -190,13 +199,16 @@
         $this->rekomendasi = htmlspecialchars(strip_tags($this->rekomendasi ));
         $this->id_status_report = htmlspecialchars(strip_tags($this->id_status_report));
         $this->keterangan_tanaman = htmlspecialchars(strip_tags($this->keterangan_tanaman));
+        $this->longitude = htmlspecialchars(strip_tags($this->longitude));
+        $this->latitude = htmlspecialchars(strip_tags($this->latitude));
         $this->id_laporan_opt = htmlspecialchars(strip_tags($this->id_laporan_opt ));
 
         if($this->dbh->prepare($sql)->execute([$this->id_user, $this->judul_laporan, $this->id_penyakit,
                                               $this->id_kec, $this->desa, $this->id_jenis_tanaman, $this->varietas, $this->umur,
                                               $this->intensitas_serangan, $this->luas_tersrang, $this->luas_hamparan,
                                               $this->gambar, $this->tanggal, $this->jenis_musuh_alami,
-                                              $this->kesimpulan,$this->rekomendasi, $this->id_status_report, $this->keterangan_tanaman,
+                                              $this->kesimpulan,$this->rekomendasi, $this->id_status_report,
+                                              $this->keterangan_tanaman, $this->longitude, $this->latitude,
                                               $this->id_laporan_opt])){
           return true;
         }

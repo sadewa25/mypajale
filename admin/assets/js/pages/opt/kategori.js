@@ -1,6 +1,6 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   //display data to datatable
   const table = $('#mydata').DataTable({
@@ -16,12 +16,14 @@ $(document).ready(function() {
   })
 
   //event clik for add button
-  $('#add-btn').on('click', function(){
+  $('#add-btn').on('click', function(e){
+    e.preventDefault()
     $('#add-modal').modal('show') //show modal add form
   })
 
   //event click for save button
-  $('#save-btn').on('click', function(){
+  $('#save-btn').on('click', function(e){
+    e.preventDefault()
     //get text data from input form
     let nama = $('#nama-add').val()
 
@@ -50,7 +52,8 @@ $(document).ready(function() {
   })
 
   //event click for edit button
-  $('#mydata').on('click', '#edit-btn', function(){
+  $('#mydata').on('click', '#edit-btn', function(e){
+    e.preventDefault()
     $('#edit-modal').modal('show') //show modal edit form
     //retrive back data to input field form edit
     $('#id-kategori-edit').val($(this).val())
@@ -58,7 +61,8 @@ $(document).ready(function() {
   })
 
   //event click for update button
-  $('#update-btn').on('click', function(){
+  $('#update-btn').on('click', function(e){
+    e.preventDefault()
     //get the data from input field
     let id = $('#id-kategori-edit').val()
     let nama = $('#nama-edit').val()
@@ -73,6 +77,7 @@ $(document).ready(function() {
         //show notif
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
         table.ajax.reload()
+        $('#edit-modal').modal('hide')
       })
     } else{
       //set and show notification is input is empty
@@ -83,13 +88,15 @@ $(document).ready(function() {
     }
   })
 
-  $('#mydata').on('click', '#delete-btn', function(){
+  $('#mydata').on('click', '#delete-btn', function(e){
+    e.preventDefault()
     $('#delete-modal').modal('show')
 
     $('#id-kategori-delete').val($(this).val())
   })
 
-  $('#delete-btn').on('click', function(){
+  $('#delete-btn').on('click', function(e){
+    e.preventDefault();
     let id = $('#id-kategori-delete').val()
 
     $.post(`${host}kategori-opt/delete.php`,
@@ -102,10 +109,10 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id_kategori_opt}"
                     nama="${data.nama}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_kategori_opt}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_kategori_opt}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

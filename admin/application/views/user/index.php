@@ -7,6 +7,7 @@
       <thead>
         <tr>
             <th>Nama</th>
+            <th>Username / NIP</th>
             <th>Email</th>
             <th>Telephone</th>
             <th>Profresi</th>
@@ -32,24 +33,32 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="nama-add">Nama Lengkap</label>
-              <input type="text" class="form-control" id="nama-add" placeholder="Nama lengkap..." value="" required>
+              <input type="text" class="form-control" id="nama-add" placeholder="Nama lengkap..." value="">
+            </div>
+            <div class="form-group">
+              <label for="username-add">Username / NIP</label>
+              <input type="text" class="form-control" id="username-add" placeholder="Username / NIP..." value="">
+            </div>
+            <div class="form-group">
+              <label for="username-add">NIP Koordinator</label> <small class="text-danger">*bila ada</small>
+              <input type="text" class="form-control" id="koordinator-add" placeholder="NIP..." value="">
             </div>
             <div class="form-group">
               <label for="email-add">Email</label>
-              <input type="email" class="form-control" id="email-add" placeholder="Email..." value="" required>
+              <input type="email" class="form-control" id="email-add" placeholder="Email..." value="">
             </div>
             <div class="form-group">
               <label for="pass-add">Password</label>
-              <input type="password" class="form-control" id="pass-add" placeholder="Password..." value="" required>
+              <input type="password" class="form-control" id="pass-add" placeholder="Password..." value="">
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="phone-add">No. Telp</label>
-                <input type="text" class="form-control" id="phone-add" placeholder="No telephone..." value="" required>
+                <input type="text" class="form-control" id="phone-add" placeholder="No telephone..." value="">
               </div>
               <div class="form-group col-md-6">
                 <label for="profesi-add">Profesi</label>
-                <input type="text" class="form-control" id="profesi-add" placeholder="Profesi..." value="" required>
+                <input type="text" class="form-control" id="profesi-add" placeholder="Profesi..." value="">
               </div>
             </div>
             <div class="form-row">
@@ -68,7 +77,7 @@
             </div>
             <div class="form-group">
               <label for="alamat-add">Alamat</label>
-              <textarea class="form-control-file p-1" id="alamat-add"></textarea>
+              <textarea class="form-control p-1" id="alamat-add"></textarea>
             </div>
             <div class="form-group">
               <label for="status-add">Status User</label>
@@ -101,26 +110,34 @@
             <input type="hidden" class="form-control" id="id-user-edit">
             <div class="form-group">
               <label for="nama-edit">Nama Lengkap</label>
-              <input type="text" class="form-control" id="nama-edit" placeholder="Nama lengkap..." value="" required>
+              <input type="text" class="form-control" id="nama-edit" placeholder="Nama lengkap..." value="">
+            </div>
+            <div class="form-group">
+              <!-- <label for="username-edit">Username / NIP</label> -->
+              <input type="hidden" class="form-control" id="username-edit" placeholder="Username / NIP..." value="">
+            </div>
+            <div class="form-group">
+              <label for="username-add">NIP Koordinator</label>
+              <input type="text" class="form-control" id="koordinator-edit" placeholder="NIP..." value="null">
             </div>
             <div class="form-group">
               <label for="email-edit">Email</label>
-              <input type="email" class="form-control" id="email-edit" placeholder="Email..." value="" required>
+              <input type="email" class="form-control" id="email-edit" placeholder="Email..." value="">
             </div>
             <div class="form-group">
               <input type="hidden" id="pass-before">
               <label for="pass-edit">Password</label>
-              <input type="password" class="form-control" id="pass-edit" placeholder="Password..." value="" required>
+              <input type="password" class="form-control" id="pass-edit" placeholder="Password..." value="">
               <small class="text-danger">*kosongi jika tidak ingin mengganti password</small>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="phone-edit">No. Telp</label>
-                <input type="text" class="form-control" id="phone-edit" placeholder="No telephone..." value="" required>
+                <input type="text" class="form-control" id="phone-edit" placeholder="No telephone..." value="">
               </div>
               <div class="form-group col-md-6">
                 <label for="profesi-edit">Profesi</label>
-                <input type="text" class="form-control" id="profesi-edit" placeholder="Profesi..." value="" required>
+                <input type="text" class="form-control" id="profesi-edit" placeholder="Profesi..." value="">
               </div>
             </div>
             <div class="form-row">
@@ -139,7 +156,7 @@
             </div>
             <div class="form-group">
               <label for="alamat-edit">Alamat</label>
-              <textarea class="form-control-file p-1" id="alamat-edit"></textarea>
+              <textarea class="form-control p-1" id="alamat-edit"></textarea>
             </div>
             <div class="form-group">
               <label for="status-edit">Status User</label>

@@ -18,7 +18,7 @@ $(document).ready(function(){
     }
 
     if (email != '' && pass != '' && conPass != '' && confirm() ) {
-      $.post(`http://mypajale.sahabatj.com/apimypajale/api/users/changepassword.php`,
+      $.post(`http://mypajale.id/apimypajale/api/users/changepassword.php`,
       {email_user: email,
        password_user: pass},
       function(json){

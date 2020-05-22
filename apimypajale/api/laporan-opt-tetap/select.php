@@ -40,6 +40,8 @@
         'rekomendasi' => $rekomendasi,
         'id_status_report' => $id_status_report,
         'keterangan_tanaman' => $keterangan_tanaman,
+        'longitude' => $longitude,
+        'latitude' => $latitude,
         'nama_status_report' => $nama_status_report
       );
 

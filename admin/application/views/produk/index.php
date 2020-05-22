@@ -35,7 +35,8 @@
             </div>
             <div class="form-group">
               <label for="desc-add">Deskripsi</label>
-              <div id="desc-add"></div>
+              <!-- <div id="desc-add"></div> -->
+              <textarea name="desc-add" rows="8" id="desc-add" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -89,8 +90,9 @@
               <input type="text" class="form-control" id="nama-edit" placeholder="Nama produk" value="">
             </div>
             <div class="form-group">
-              <label for="desc-add">Deskripsi</label>
-              <div id="desc-edit"></div>
+              <label for="desc-edit">Deskripsi</label>
+              <!-- <div id="desc-edit"></div> -->
+              <textarea name="desc-edit" rows="8" id="desc-edit" class="w-100 form-control"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">

@@ -1,6 +1,6 @@
 $(document).ready(function() {
   //show data from api
-  const host = 'http://mypajale.sahabatj.com/apimypajale/api/'
+  const host = 'http://mypajale.id/apimypajale/api/'
 
   const table = $('#mydata').DataTable({
     'ajax' : {
@@ -101,6 +101,7 @@ $(document).ready(function() {
         id_tanaman: tanaman},
       function(success){
         $.notify("Data berhasil diubah", { position: "right bottom", className: "success" });
+        $('#edit-modal').modal('hide')
         table.ajax.reload()
       })
     }else{
@@ -137,11 +138,11 @@ $(document).ready(function() {
   })
 
   function renderActionButton(data){
-    return `<button class="btn btn-warning btn-sm mx-1" id="edit-btn"
+    return `<button class="btn btn-warning btn-sm m-1" id="edit-btn"
                     value="${data.id_gejala}" name="${data.nama}"
                     organ="${data.organ_terserang}"
                     tanaman="${data.tanaman}"><span class="fas fa-edit h6 mr-1"></span>Edit</button>
-            <button href="#" class="btn btn-danger btn-sm mx-1" id="delete-btn" value="${data.id_gejala}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
+            <button href="#" class="btn btn-danger btn-sm m-1" id="delete-btn" value="${data.id_gejala}"><span class="fas fa-trash-alt h6 mr-1"></span>Hapus</button>`
   }
 
 });

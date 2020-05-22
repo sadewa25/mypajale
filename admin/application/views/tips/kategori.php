@@ -31,8 +31,9 @@
               <input type="text" class="form-control" id="nama-add" placeholder="Nama kategori" value="">
             </div>
             <div class="form-group">
-              <label for="desc-add">Keterangan</label>
-              <div id="ket-add"></div>
+              <label for="ket-add">Keterangan</label>
+              <!-- <div id="ket-add"></div> -->
+              <textarea name="ket-add" rows="8" class="w-100 form-control" id="ket-add"></textarea>
             </div>
           </div>
           <div class="modal-footer">
@@ -62,8 +63,9 @@
               <input type="text" class="form-control" id="nama-edit" placeholder="Nama kategori" value="">
             </div>
             <div class="form-group">
-              <label for="desc-add">Keterangan</label>
-              <div id="ket-edit"></div>
+              <label for="ket-edit">Keterangan</label>
+              <!-- <div id="ket-edit"></div> -->
+              <textarea name="ket-edit" rows="8" class="w-100 form-control" id="ket-edit"></textarea>
             </div>
           </div>
           <div class="modal-footer">
