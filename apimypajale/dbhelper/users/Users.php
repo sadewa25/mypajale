@@ -13,6 +13,7 @@ class Users{
   public $alamat;
   public $id_status_users;
   public $id_koordinator;
+  public $foto_user;
   public $table_name = "users";
 
   function __construct($dbh){
@@ -46,7 +47,7 @@ class Users{
   function insert(){
     $sql = "INSERT INTO $this->table_name (id_users, nama_lengkap, email_user, password_user,
                                             telephone_user, profesi, kabupaten, kecamatan,
-                                            alamat, id_status_users, id_koordinator) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                                            alamat, id_status_users, id_koordinator, foto_user) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
     $this->username_user = htmlspecialchars(strip_tags($this->username_user));
     $this->nama_lengkap = htmlspecialchars(strip_tags($this->nama_lengkap));
@@ -59,10 +60,11 @@ class Users{
     $this->alamat = htmlspecialchars(strip_tags($this->alamat));
     $this->id_status_users = htmlspecialchars(strip_tags($this->id_status_users));
     $this->id_koordinator = htmlspecialchars(strip_tags($this->id_koordinator));
+    $this->foto_user = htmlspecialchars(strip_tags($this->foto_user));
 
     if($this->dbh->prepare($sql)->execute([$this->username_user, $this->nama_lengkap, $this->email_user, $this->password_user,
                                             $this->telephone_user, $this->profesi, $this->kabupaten,
-                                            $this->kecamatan, $this->alamat, $this->id_status_users, $this->id_koordinator])){
+                                            $this->kecamatan, $this->alamat, $this->id_status_users, $this->id_koordinator, $this->foto_user])){
       return true;
     };
     return false;
@@ -72,7 +74,7 @@ class Users{
     $sql = "UPDATE $this->table_name SET nama_lengkap = ?, email_user = ?,
                                          password_user = ?, telephone_user = ?,
                                          profesi = ?, kabupaten = ?, kecamatan = ?,
-                                         alamat = ?, id_status_users = ?, id_koordinator = ? WHERE id_users = ?";
+                                         alamat = ?, id_status_users = ?, id_koordinator = ?, foto_user = ? WHERE id_users = ?";
 
    $this->username_user = htmlspecialchars(strip_tags($this->username_user));
    $this->nama_lengkap = htmlspecialchars(strip_tags($this->nama_lengkap));
@@ -85,11 +87,12 @@ class Users{
    $this->alamat = htmlspecialchars(strip_tags($this->alamat));
    $this->id_status_users = htmlspecialchars(strip_tags($this->id_status_users));
    $this->id_koordinator = htmlspecialchars(strip_tags($this->id_koordinator));
+   $this->foto_user = htmlspecialchars(strip_tags($this->foto_user));
 
     if($this->dbh->prepare($sql)->execute([$this->nama_lengkap, $this->email_user, $this->password_user,
                                             $this->telephone_user, $this->profesi, $this->kabupaten,
                                             $this->kecamatan, $this->alamat, $this->id_status_users,
-                                            $this->id_koordinator, $this->username_user])){
+                                            $this->id_koordinator, $this->foto_user, $this->username_user])){
       return true;
     }
     return false;
@@ -138,6 +141,36 @@ class Users{
     $stmt = $this->dbh->prepare($sql);
     $stmt->execute([$this->username_user]);
     return $stmt->rowCount();
+  }
+
+  function updateFoto()
+  {
+    $sql = "UPDATE $this->table_name SET foto_user = ? WHERE id_users = ?";
+
+    $this->foto_user = htmlspecialchars(strip_tags($this->foto_user));
+    $this->id_users = htmlspecialchars(strip_tags($this->id_users));
+
+    $stmt = $this->dbh->prepare($sql)->execute([$this->foto_user, $this->id_users]);
+    if($stmt){
+      return true;
+    }
+    return false;
+  }
+
+  function updateTelAlPro()
+  {
+    $sql = "UPDATE $this->table_name SET telephone_user = ?, profesi = ?, alamat = ? WHERE id_users = ?";
+
+    $this->telephone_user = htmlspecialchars(strip_tags($this->telephone_user));
+    $this->profesi = htmlspecialchars(strip_tags($this->profesi));
+    $this->alamat = htmlspecialchars(strip_tags($this->alamat));
+    $this->id_users = htmlspecialchars(strip_tags($this->id_users));
+
+    $stmt = $this->dbh->prepare($sql)->execute([$this->telephone_user, $this->profesi, $this->alamat, $this->id_users]);
+    if($stmt){
+      return true;
+    }
+    return false;
   }
 }
 

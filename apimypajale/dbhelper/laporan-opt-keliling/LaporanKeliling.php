@@ -83,7 +83,7 @@
         INNER JOIN status_report ON status_report.id_status_report = laporan_opt_keliling.id_status_report";
         $end = "ORDER BY laporan_opt_keliling.id_laporan_opt DESC";
         $sql .= " WHERE ".implode(" AND ", $col)." ".$end;
-        //echo $sql;
+        // echo $sql;
         $day = date('j');
         $month = date('n');
         $year = date('Y');
@@ -141,7 +141,6 @@
                                                         ?, ?, ?, ?, ?, ?,
                                                         ?, ?, ?, ?, ?, ?,
                                                         ?, ?)";
-
         $this->id_user = htmlspecialchars(strip_tags($this->id_user ));
         $this->judul_laporan = htmlspecialchars(strip_tags($this->judul_laporan ));
         $this->id_penyakit = htmlspecialchars(strip_tags($this->id_penyakit ));

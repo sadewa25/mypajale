@@ -34,6 +34,7 @@
         'kecamatan' => $kecamatan,
         'alamat' => $alamat,
         'id_koordinator' => $id_koordinator,
+        'foto_user' => $foto_user,
         'id_status_users' => $id_status_users,
       );
 

@@ -38,9 +38,13 @@
 
 		require_once '../../dbhelper/connection.php';
 
-		$sql = "SELECT `id_koordinator` FROM `users` WHERE `id_users` = ? ";
+		$sql = "SELECT `id_koordinator` FROM `users` WHERE `id_users` = ?";
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute([$id_users]);
+
+		$sqlFour = "SELECT `id_koordinator` FROM `users` WHERE `id_status_users` = 4";
+		$stmtFour = $dbh->prepare($sqlFour);
+		$stmtFour->execute();
 		// $res = mysqli_query($dbh, $sql);
 		//print_r($stmt->fetchAll());
     $result = array();
@@ -49,8 +53,14 @@
 			//echo $text;
      	$response = sendMessage($text,$title);
     }
+		$resultFour = array();
+    while($rowFour = $stmtFour->fetchAll()){
+			$textFour = $rowFour[0][0].'@gmail.com';
+			//echo $text;
+     	$responseFour = sendMessage($textFour,$title);
+    }
 		$return = array();
-		$return["result"] = $response;
+		$return["result"] = [$response, $responseFour];
 		echo json_encode($return);
 	}
 ?>

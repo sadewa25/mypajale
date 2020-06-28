@@ -21,6 +21,7 @@
   $kecamatan  = $_POST['kecamatan'];
   $alamat  = $_POST['alamat'];
   $id_koordinator = $_POST['id_koordinator'];
+  $foto_user = $_POST['foto_user'];
   $id_status_users  = $_POST['id_status_users'];
 
   if (!empty($nama_lengkap) &&
@@ -39,6 +40,7 @@
     $users->kecamatan = $kecamatan;
     $users->alamat = $alamat;
     $users->id_koordinator = $id_koordinator;
+    $users->foto_user = $foto_user;
     $users->id_status_users = $id_status_users;
 
     if ($users->checkUsername() > 0) {

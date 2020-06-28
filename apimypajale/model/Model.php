@@ -19,6 +19,8 @@
       foreach($this->opt as $value){
         $temp = array();
         $temp['nama'] = $value['nama'];
+        $temp['gambar_opt'] = $value['gambar_opt'];
+        $temp['solusi'] = $value['solusi'];
         $temp['model'] = array();
         for($i = 0; $i < sizeof($baseModelOpt); $i++){
           array_push($temp['model'], 0);
@@ -67,6 +69,8 @@
         $temp['bobot'] = $count;
         $temp['totalBobot'] = $bobotOpt;
         $temp['probabilitas'] = round(($temp['bobot']/$temp['totalBobot']),3);
+        $temp['gambar_opt'] = $model['gambar_opt'];
+        $temp['solusi'] = $model['solusi'];
         array_push($result, $temp);
         //print_r($temp);
       }

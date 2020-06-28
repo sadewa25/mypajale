@@ -13,7 +13,6 @@
   $berita->id_berita = isset($_POST['id_users']) ? $_POST['id_users'] : die();
 
   $data = $berita->select('id_users', $berita->id_berita);
-  print_r($data);
 
   if (sizeof($data) > 0) {
     $result = array();

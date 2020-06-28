@@ -11,44 +11,23 @@
 
   $users = new Users($dbh);
 
-  $username_user = $_POST['username_user'];
-  $nama_lengkap  = $_POST['nama_lengkap'];
-  $email_user  = $_POST['email_user'];
-  $password_user  = $_POST['password_user'];
+
   $telephone_user  = $_POST['telephone_user'];
   $profesi  = $_POST['profesi'];
-  $kabupaten  = $_POST['kabupaten'];
-  $kecamatan  = $_POST['kecamatan'];
   $alamat  = $_POST['alamat'];
-  $id_koordinator = $_POST['id_koordinator'];
-  $foto_user = $_POST['foto_user'];
-  $id_status_users  = $_POST['id_status_users'];
+  $id_user = $_POST['id_user'];
 
-  if (!empty($username_user) &&
-      !empty($nama_lengkap) &&
-      !empty($email_user) &&
-      !empty($password_user) &&
-      !empty($telephone_user) &&
+  if (!empty($telephone_user) &&
       !empty($profesi) &&
-      !empty($kabupaten) &&
-      !empty($kecamatan) &&
       !empty($alamat) &&
-      !empty($id_status_users)){
+      !empty($id_user)){
 
-    $users->username_user = $username_user;
-    $users->nama_lengkap = $nama_lengkap;
-    $users->email_user = $email_user;
-    $users->password_user = md5($password_user);
     $users->telephone_user = $telephone_user;
     $users->profesi = $profesi;
-    $users->kabupaten = $kabupaten;
-    $users->kecamatan = $kecamatan;
     $users->alamat = $alamat;
-    $users->id_koordinator = $id_koordinator;
-    $users->foto_user = $foto_user;
-    $users->id_status_users = $id_status_users;
+    $users->id_users = $id_user;
 
-    if ($users->update()) {
+    if ($users->updateTelAlPro()) {
       http_response_code(201);
       echo json_encode(array("value" => 1,"message" => "Data user berhasil diubah"));
 
